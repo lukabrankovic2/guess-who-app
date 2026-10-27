@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Suspense, useCallback, useEffect, useState, useSyncExternalStore } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import type { Lobby } from "@/lib/game";
 
 type View = Lobby & { me: string; categories: string[] };
@@ -9,6 +9,7 @@ type View = Lobby & { me: string; categories: string[] };
 const subscribe = () => () => {};
 function LobbyContent() { 
   const { code } = useParams<{ code: string }>();
+  const router = useRouter();
     // undefined = still on the server, null = no saved player id, string = saved id
   const stored = useSyncExternalStore(
     subscribe,
@@ -61,6 +62,13 @@ function LobbyContent() {
     if (!ok) return setError(data.error);
     localStorage.setItem(`pid:${code}`, data.pid);
     setJoinedPid(data.pid);
+  }
+
+  async function leave() {
+    if (!window.confirm("Leave this lobby?")) return;
+    await post({ pid, action: "leave" });
+    router.push("/");
+    localStorage.removeItem(`pid:${code}`);
   }
 
   const btn = "rounded-lg bg-blue-600 px-4 py-2 text-white disabled:opacity-40";
@@ -155,7 +163,7 @@ function LobbyContent() {
           {isHost ? picker("New game", "newGame") : <p>Waiting for the host to start a new game…</p>}
         </>
       )}
-
+    <button className="text-sm underline opacity-70" onClick={leave}>Leave lobby</button>
       {error && <p className="text-red-500">{error}</p>}
     </main>
   );

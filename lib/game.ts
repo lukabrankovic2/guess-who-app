@@ -83,6 +83,23 @@ export function applyAction(l: Lobby, pid: string, a: Action): string | null {
       }
       return null;
     }
+
+    case "leave": {
+      const leaver = l.players.find((p) => p.id === pid)!;
+      leaver.out = true; // so turn and game-end checks ignore them
+      if (l.status === "playing") {
+        const remaining = l.players.filter((p) => !p.out).length;
+        if (remaining <= 1) {
+          l.status = "finished";
+          l.turnId = null;
+        } else if (l.turnId === pid) {
+          l.turnId = nextActive(l, pid); // pass the turn on before removing them
+        }
+      }
+      l.players = l.players.filter((p) => p.id !== pid);
+      if (l.hostId === pid && l.players.length > 0) l.hostId = l.players[0].id;
+      return null;
+    }
   }
   return "Unknown action";
 }

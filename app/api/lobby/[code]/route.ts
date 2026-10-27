@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto";
-import { loadLobby, saveLobby } from "@/lib/db";
+import { deleteLobby, loadLobby, saveLobby } from "@/lib/db";
 import { applyAction, viewFor, MAX_PLAYERS, type Action } from "@/lib/game";
 
 type Ctx = { params: Promise<{ code: string }> };
@@ -36,6 +36,11 @@ export async function POST(req: Request, { params }: Ctx) {
   if (!body.pid) return err("Missing player", 403);
   const message = applyAction(lobby, body.pid, body);
   if (message) return err(message);
-  await saveLobby(lobby);
-  return Response.json(viewFor(lobby, body.pid));
+   if (lobby.players.length === 0) {
+     await deleteLobby(code); // last person left, so remove the lobby
+     return Response.json({ left: true });
+   }
+   await saveLobby(lobby);
+   if (body.action === "leave") return Response.json({ left: true });
+   return Response.json(viewFor(lobby, body.pid));
 }

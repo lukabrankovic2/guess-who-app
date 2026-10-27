@@ -12,3 +12,8 @@ export async function saveLobby(l: Lobby) {
   const { error } = await db.from("lobbies").upsert({ code: l.code, state: l, updated_at: new Date().toISOString() });
   if (error) throw new Error(error.message);
 }
+
+export async function deleteLobby(code: string) {
+  const { error } = await db.from("lobbies").delete().eq("code", code);
+  if (error) throw new Error("delete failed: " + JSON.stringify(error));
+}
