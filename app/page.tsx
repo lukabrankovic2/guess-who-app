@@ -7,29 +7,40 @@ export default function Home() {
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
 
   async function create() {
+    if (busy) return;
+    setBusy(true);
     const res = await fetch("/api/lobby", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name }),
     });
     const data = await res.json();
-    if (!res.ok) return setError(data.error);
+    if (!res.ok) {
+      setBusy(false);
+      return setError(data.error);
+    }
     localStorage.setItem(`pid:${data.code}`, data.token);
     router.push(`/lobby/${data.code}`);
   }
 
   async function join() {
-     // already in this lobby on this browser: just open it
+    if (busy) return;
+    // already in this lobby on this browser: just open it
     if (localStorage.getItem(`pid:${code}`)) return router.push(`/lobby/${code}`);
+    setBusy(true);
     const res = await fetch(`/api/lobby/${code}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ action: "join", name }),
     });
     const data = await res.json();
-    if (!res.ok) return setError(data.error);
+    if (!res.ok) {
+      setBusy(false);
+      return setError(data.error);
+    }
     localStorage.setItem(`pid:${code}`, data.token);
     router.push(`/lobby/${code}`);
   }

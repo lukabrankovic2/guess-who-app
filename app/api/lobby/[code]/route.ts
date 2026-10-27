@@ -27,6 +27,9 @@ export async function POST(req: Request, { params }: Ctx) {
     if (lobby.players.length >= MAX_PLAYERS) return err("Lobby is full");
     const name = String(body.name ?? "").trim().slice(0, 20);
     if (!name) return err("Enter a name");
+    if (lobby.players.some((p) => p.name.toLowerCase() === name.toLowerCase())) {
+      return err("That name is already taken in this lobby");
+    }
     const token = randomUUID();
     lobby.players.push({ id: randomUUID(), token, name, score: 0, thing: null, out: false });
     await saveLobby(lobby);

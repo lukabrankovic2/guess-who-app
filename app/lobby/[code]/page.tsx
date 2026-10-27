@@ -23,6 +23,7 @@ function LobbyContent() {
   const [error, setError] = useState("");
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
+  const [joining, setJoining] = useState(false);
 
 
   const refresh = useCallback(async () => {
@@ -58,8 +59,13 @@ function LobbyContent() {
   }
 
   async function join() {
+    if (joining) return;
+    setJoining(true);
     const { ok, data } = await post({ action: "join", name });
-    if (!ok) return setError(data.error);
+    if (!ok) {
+      setJoining(false);
+      return setError(data.error);
+    }
     localStorage.setItem(`pid:${code}`, data.token);
     setJoinedPid(data.token);
   }

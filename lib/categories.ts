@@ -17,7 +17,7 @@ export const CATEGORIES: Record<string, Item[]> = {
     { name: "Terrorist", image: "/images/video-game-characters/terrorist.jpg" },
     { name: "Counter-Terrorist", image: "/images/video-game-characters/counter-terrorist.png" },
     { name: "The Knight", image: "/images/video-game-characters/hollow-knight.jpg" },
-    { name: "CJ", image: "/images/video-game-characters/cj.png" },
+    { name: "Carl Johnson", image: "/images/video-game-characters/cj.png" },
     { name: "Dragonborn", image: "/images/video-game-characters/dragonborn.jpeg" },
     { name: "Imposter", image: "/images/video-game-characters/imposter.png" },
     { name: "Gordon Freeman", image: "/images/video-game-characters/gordon-freeman.png" },
@@ -52,7 +52,12 @@ export const CATEGORIES: Record<string, Item[]> = {
     { name: "Jinx", image: "/images/video-game-characters/jinx.png" },
     { name: "Isaac", image: "/images/video-game-characters/isaac.png" },
     { name: "Niko Belic", image: "/images/video-game-characters/niko.png" },
-
+    { name: "Alan Wake", image: "/images/video-game-characters/alan-wake.png" },
+    { name: "Michael", image: "/images/video-game-characters/michael.png" },
+    { name: "Franklin", image: "/images/video-game-characters/franklin.png" },
+    { name: "Trevor", image: "/images/video-game-characters/trevor.png" },
+    { name: "Elizabeth", image: "/images/video-game-characters/elizabeth.jpg" },
+    { name: "John Marston", image: "/images/video-game-characters/john-marston.png" },
 
   ],
 };
