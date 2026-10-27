@@ -24,6 +24,16 @@ export const CATEGORIES: Record<string, Item[]> = {
     { name: "Chell", image: "/images/video-game-characters/chell.png" },
     { name: "Lara Croft", image: "/images/video-game-characters/lara-croft.png" },
     { name: "Ellie", image: "/images/video-game-characters/ellie.png" },
+    { name: "Jill Valentine", image: "/images/video-game-characters/jill-valentine.png" },
+    { name: "Geralt of Rivia", image: "/images/video-game-characters/geralt.png" },
+    { name: "Clementine", image: "/images/video-game-characters/clementine.png" },
+    { name: "Princess Zelda", image: "/images/video-game-characters/zelda.png" },
+    { name: "Master Chief", image: "/images/video-game-characters/master-chief.png" },
+    { name: "Ellie", image: "/images/video-game-characters/ellie.png" },
+    { name: "Samus Aran", image: "/images/video-game-characters/samus.png" },
+    { name: "2B", image: "/images/video-game-characters/2b.png" },
+    { name: "Lilith", image: "/images/video-game-characters/lilith.png" },
+    { name: "Hornet", image: "/images/video-game-characters/hornet.png" },
 
 
   ],
