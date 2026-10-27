@@ -118,7 +118,7 @@ function LobbyContent() {
         {view.players.map((p) => (
           <div
             key={p.id}
-            className={`rounded-xl border p-4 text-center ${
+            className={`rounded-xl border p-10 text-center ${
               p.id === view.turnId ? "bg-amber-100 text-black ring-4 ring-amber-400" : ""
             } ${p.out ? "opacity-40" : ""}`}
           >

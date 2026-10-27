@@ -20,6 +20,20 @@ export default function Home() {
     router.push(`/lobby/${data.code}`);
   }
 
+  async function join() {
+     // already in this lobby on this browser: just open it
+    if (localStorage.getItem(`pid:${code}`)) return router.push(`/lobby/${code}`);
+    const res = await fetch(`/api/lobby/${code}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "join", name }),
+    });
+    const data = await res.json();
+    if (!res.ok) return setError(data.error);
+    localStorage.setItem(`pid:${code}`, data.pid);
+    router.push(`/lobby/${code}`);
+  }
+
   const input = "w-full rounded-lg border px-3 py-2 text-black bg-white";
   const btn = "rounded-lg bg-blue-600 px-4 py-2 text-white disabled:opacity-40";
 
@@ -36,7 +50,7 @@ export default function Home() {
         maxLength={4}
         onChange={(e) => setCode(e.target.value.toUpperCase())}
       />
-      <button className={btn} disabled={code.length !== 4} onClick={() => router.push(`/lobby/${code}`)}>
+      <button className={btn} disabled={!name.trim() || code.length !== 4} onClick={join}>
         Join with code
       </button>
       {error && <p className="text-red-500">{error}</p>}
