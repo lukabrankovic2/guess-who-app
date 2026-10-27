@@ -2,7 +2,8 @@ import { CATEGORIES, type Item } from "./categories";
 
 export const MAX_PLAYERS = 8;
 
-export type Player = { id: string; name: string; score: number; thing: Item | null; out: boolean };
+export type Player = { id: string; token: string; name: string; score: number; thing: Item | null; out: boolean };
+export type PublicPlayer = Omit<Player, "token">;
 export type Lobby = {
   code: string;
   hostId: string;
@@ -49,9 +50,11 @@ function startGame(l: Lobby, category?: string): string | null {
 }
 
 // Changes the lobby in place. Returns an error message, or null if it worked.
-export function applyAction(l: Lobby, pid: string, a: Action): string | null {
-  if (!l.players.some((p) => p.id === pid)) return "You are not in this lobby";
-  const isHost = l.hostId === pid;
+   export function applyAction(l: Lobby, token: string, a: Action): string | null {
+     const me = l.players.find((p) => p.token === token);
+     if (!me) return "You are not in this lobby";
+     const pid = me.id; // public id of the player doing the action
+     const isHost = l.hostId === pid;
 
   switch (a.action) {
     case "start":
@@ -105,14 +108,22 @@ export function applyAction(l: Lobby, pid: string, a: Action): string | null {
 }
 
 // What one player is allowed to see. Their own thing is removed on the server.
-export function viewFor(l: Lobby, pid: string) {
-  return {
-    ...l,
-    me: pid,
-    categories: Object.keys(CATEGORIES),
-    players: l.players.map((p) => ({
-      ...p,
-      thing: l.status === "playing" && p.id === pid ? null : l.status === "lobby" ? null : p.thing,
-    })),
-  };
-}
+   export function viewFor(l: Lobby, token: string) {
+     const me = l.players.find((p) => p.token === token);
+     return {
+       code: l.code,
+       hostId: l.hostId,
+       status: l.status,
+       category: l.category,
+       turnId: l.turnId,
+       me: me?.id ?? "",
+       categories: Object.keys(CATEGORIES),
+       players: l.players.map((p) => ({
+         id: p.id,
+         name: p.name,
+         score: p.score,
+         out: p.out,
+         thing: l.status === "lobby" ? null : l.status === "playing" && p.id === me?.id ? null : p.thing,
+       })),
+     };
+   }

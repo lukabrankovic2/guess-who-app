@@ -2,9 +2,9 @@
 import Image from "next/image";
 import { Suspense, useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import { useParams, useRouter } from "next/navigation";
-import type { Lobby } from "@/lib/game";
+import type { Lobby, PublicPlayer } from "@/lib/game";
 
-type View = Lobby & { me: string; categories: string[] };
+type View = Omit<Lobby, "players"> & { players: PublicPlayer[]; me: string; categories: string[] };
 
 const subscribe = () => () => {};
 function LobbyContent() { 
@@ -27,7 +27,7 @@ function LobbyContent() {
 
   const refresh = useCallback(async () => {
     if (!pid) return;
-    const res = await fetch(`/api/lobby/${code}?pid=${pid}`, { cache: "no-store" });
+    const res = await fetch(`/api/lobby/${code}?token=${pid}`, { cache: "no-store" });
     const data = await res.json();
     if (res.ok) setView(data);
     else setError(data.error);
@@ -53,20 +53,20 @@ function LobbyContent() {
   }
 
   async function act(body: object) {
-    const { ok, data } = await post({ pid, ...body });
+    const { ok, data } = await post({ token: pid, ...body });
     if (ok) { setView(data); setError(""); } else setError(data.error);
   }
 
   async function join() {
     const { ok, data } = await post({ action: "join", name });
     if (!ok) return setError(data.error);
-    localStorage.setItem(`pid:${code}`, data.pid);
-    setJoinedPid(data.pid);
+    localStorage.setItem(`pid:${code}`, data.token);
+    setJoinedPid(data.token);
   }
 
   async function leave() {
     if (!window.confirm("Leave this lobby?")) return;
-    await post({ pid, action: "leave" });
+    await post({ token: pid, action: "leave" });
     router.push("/");
     localStorage.removeItem(`pid:${code}`);
   }
@@ -120,7 +120,7 @@ function LobbyContent() {
         {view.players.map((p) => (
           <div
             key={p.id}
-            className={`rounded-xl border p-12 text-center ${
+            className={`rounded-xl border p-8 text-center ${
               p.id === view.turnId ? "bg-amber-100 text-black ring-4 ring-amber-400" : ""
             } ${p.out ? "opacity-40" : ""}`}
           >

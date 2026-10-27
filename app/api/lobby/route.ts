@@ -14,13 +14,14 @@ export async function POST(req: Request) {
   while (await loadLobby(code)) code = makeCode();
 
   const pid = randomUUID();
+  const token = randomUUID();
   await saveLobby({
     code,
     hostId: pid,
     status: "lobby",
     category: null,
-    players: [{ id: pid, name: clean, score: 0, thing: null, out: false }],
+    players: [{ id: pid, token, name: clean, score: 0, thing: null, out: false }],
     turnId: null,
   });
-  return Response.json({ code, pid });
+  return Response.json({ code, token });
 }

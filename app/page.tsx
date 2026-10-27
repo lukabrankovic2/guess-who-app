@@ -16,7 +16,7 @@ export default function Home() {
     });
     const data = await res.json();
     if (!res.ok) return setError(data.error);
-    localStorage.setItem(`pid:${data.code}`, data.pid);
+    localStorage.setItem(`pid:${data.code}`, data.token);
     router.push(`/lobby/${data.code}`);
   }
 
@@ -30,7 +30,7 @@ export default function Home() {
     });
     const data = await res.json();
     if (!res.ok) return setError(data.error);
-    localStorage.setItem(`pid:${code}`, data.pid);
+    localStorage.setItem(`pid:${code}`, data.token);
     router.push(`/lobby/${code}`);
   }
 
