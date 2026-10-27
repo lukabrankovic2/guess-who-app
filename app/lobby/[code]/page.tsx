@@ -103,7 +103,9 @@ function LobbyContent() {
   );
 
   return (
-    <main className="mx-auto max-w-3xl space-y-6 p-6">
+    <main className="mx-auto max-w-5xl p-6">
+      <div className="grid gap-6 md:grid-cols-[1fr_16rem]">
+       <div className="space-y-6">
       <header className="flex items-baseline justify-between">
         <h1 className="text-2xl font-bold">Lobby {view.code}</h1>
         <span className="text-sm opacity-70">{view.players.length}/8 players{view.category && ` · ${view.category}`}</span>
@@ -118,7 +120,7 @@ function LobbyContent() {
         {view.players.map((p) => (
           <div
             key={p.id}
-            className={`rounded-xl border p-10 text-center ${
+            className={`rounded-xl border p-12 text-center ${
               p.id === view.turnId ? "bg-amber-100 text-black ring-4 ring-amber-400" : ""
             } ${p.out ? "opacity-40" : ""}`}
           >
@@ -157,15 +159,29 @@ function LobbyContent() {
 
       {view.status === "finished" && (
         <>
-          <ol className="list-decimal pl-6">
-            {ranking.map((p) => <li key={p.id}>{p.name}: {p.score} pts</li>)}
-          </ol>
+          
           {isHost ? picker("New game", "newGame") : <p>Waiting for the host to start a new game…</p>}
         </>
       )}
     <button className="text-sm underline opacity-70" onClick={leave}>Leave lobby</button>
       {error && <p className="text-red-500">{error}</p>}
-    </main>
+    </div>
+       <aside className="h-fit rounded-xl border p-4">
+         <h2 className="mb-2 font-semibold">Leaderboard</h2>
+         <table className="w-full text-sm">
+           <tbody>
+             {ranking.map((p, i) => (
+               <tr key={p.id}>
+                 <td className="py-1 pr-2 opacity-60">{i + 1}.</td>
+                 <td className="py-1">{p.name}{p.id === view.me && " (you)"}</td>
+                 <td className="py-1 text-right font-semibold">{p.score}</td>
+               </tr>
+             ))}
+           </tbody>
+         </table>
+       </aside>
+     </div>
+   </main>
   );
 }
 
