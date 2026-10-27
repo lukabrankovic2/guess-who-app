@@ -29,7 +29,7 @@ export const CATEGORIES: Record<string, Item[]> = {
     { name: "Clementine", image: "/images/video-game-characters/clementine.png" },
     { name: "Princess Zelda", image: "/images/video-game-characters/zelda.png" },
     { name: "Master Chief", image: "/images/video-game-characters/master-chief.png" },
-    { name: "Ellie", image: "/images/video-game-characters/ellie.png" },
+    { name: "Tifa Lockhart", image: "/images/video-game-characters/tifa.png" },
     { name: "Samus Aran", image: "/images/video-game-characters/samus.png" },
     { name: "2B", image: "/images/video-game-characters/2b.png" },
     { name: "Lilith", image: "/images/video-game-characters/lilith.png" },
