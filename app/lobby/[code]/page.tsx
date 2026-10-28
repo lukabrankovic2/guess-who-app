@@ -1,4 +1,6 @@
 "use client";
+import Chat from "./Chat";
+import Notes from "./Notes";
 import Image from "next/image";
 import { Suspense, useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import { useParams, useRouter } from "next/navigation";
@@ -75,6 +77,7 @@ function LobbyContent() {
     await post({ token: pid, action: "leave" });
     router.push("/");
     localStorage.removeItem(`pid:${code}`);
+    localStorage.removeItem(`notes:${code}`);
   }
 
   const btn = "rounded-lg bg-blue-600 px-4 py-2 text-white disabled:opacity-40";
@@ -110,7 +113,7 @@ function LobbyContent() {
 
   return (
     <main className="mx-auto max-w-5xl p-6">
-      <div className="grid gap-6 md:grid-cols-[1fr_16rem]">
+      <div className="grid gap-6 md:grid-cols-[1fr_20rem]">
        <div className="space-y-6">
       <header className="flex items-baseline justify-between">
         <h1 className="text-2xl font-bold">Lobby {view.code}</h1>
@@ -172,7 +175,8 @@ function LobbyContent() {
     <button className="text-sm underline opacity-70" onClick={leave}>Leave lobby</button>
       {error && <p className="text-red-500">{error}</p>}
     </div>
-       <aside className="h-fit rounded-xl border p-4">
+      <aside className="h-fit space-y-4">
+        <div className="rounded-xl border p-4">
          <h2 className="mb-2 font-semibold">Leaderboard</h2>
          <table className="w-full text-sm">
            <tbody>
@@ -185,7 +189,10 @@ function LobbyContent() {
              ))}
            </tbody>
          </table>
-       </aside>
+            </div>
+     <Chat code={code} token={pid} />
+     <Notes code={code} />
+   </aside>
      </div>
    </main>
   );

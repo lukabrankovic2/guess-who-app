@@ -143,7 +143,7 @@ export const CATEGORIES: Record<string, Item[]> = {
   ],
 
   "TV series characters (VIP)": [
-    { name: "Tony Soprano", image: "/images/tv-series-characters/chef.jp" },
+    { name: "Tony Soprano", image: "/images/tv-series-characters/tony.png" },
     { name: "Pauli Gualtieri", image: "/images/tv-series-characters/chef.jp" },
     { name: "Walter White", image: "/images/tv-series-characters/chef.jp" },
     { name: "Gus Fring", image: "/images/tv-series-characters/chef.jp" },
