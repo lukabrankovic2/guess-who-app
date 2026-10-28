@@ -290,7 +290,12 @@ export const CATEGORIES: Record<string, Item[]> = {
     { name: "Sloboda Micalovic", image: "/images/srpske-licnosti/sloboda.jpg" },
     { name: "Srdjan Todorovic", image: "/images/srpske-licnosti/srdjan.jpg" },
     { name: "Nikola Djuricko", image: "/images/srpske-licnosti/nikola-dj.jpg" },
+    { name: "Tea Tairovic", image: "/images/srpske-licnosti/tea.jpg" },
     { name: "Milorad Mandic", image: "/images/srpske-licnosti/manda.jpg" },
+    { name: "Marija Serifovic", image: "/images/srpske-licnosti/marija.jpg" },
+    { name: "Ivana Spanovic", image: "/images/srpske-licnosti/ivana.jpg" },
+    { name: "Seka Aleksic", image: "/images/srpske-licnosti/seka.jpg" },
+    { name: "Ana Brnabic", image: "/images/srpske-licnosti/ana.jpg" },
     
   ],
 
