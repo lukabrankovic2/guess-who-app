@@ -131,7 +131,7 @@ function LobbyContent() {
             key={p.id}
             className={`rounded-xl border p-8 text-center ${
               p.id === view.turnId ? "bg-amber-100 text-black ring-4 ring-amber-400" : ""
-            } ${p.out ? "opacity-40" : ""}`}
+            } ${p.out && p.id !== view.me ? "opacity-40" : ""}`}
           >
             <div className="font-semibold">
               {p.name}{p.id === view.hostId && " 👑"}{p.id === view.me && " (you)"}

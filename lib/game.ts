@@ -123,7 +123,7 @@ function startGame(l: Lobby, category?: string): string | null {
          name: p.name,
          score: p.score,
          out: p.out,
-         thing: l.status === "lobby" ? null : l.status === "playing" && p.id === me?.id ? null : p.thing,
+         thing: l.status === "lobby" ? null : l.status === "playing" && p.id === me?.id && !p.out ? null : p.thing,
        })),
      };
    }
