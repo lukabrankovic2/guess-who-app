@@ -6,8 +6,17 @@ type Msg = { id: number; name: string; text: string };
 export default function Chat({ code, token }: { code: string; token: string }) {
   const [messages, setMessages] = useState<Msg[]>([]);
   const [text, setText] = useState("");
-  const lastId = useRef(0); // id of the newest message we already have
+  const lastId = useRef(0); // id of the newest message fetched from the server
   const box = useRef<HTMLDivElement>(null);
+
+  // Add messages to the list, skipping ones we already have, and keep them in order
+  const merge = useCallback((fresh: Msg[]) => {
+    setMessages((old) =>
+      [...old, ...fresh.filter((f) => !old.some((o) => o.id === f.id))]
+        .sort((a, b) => a.id - b.id)
+        .slice(-200)
+    );
+  }, []);
 
   const refresh = useCallback(async () => {
     const res = await fetch(`/api/lobby/${code}/chat?token=${token}&after=${lastId.current}`, { cache: "no-store" });
@@ -15,12 +24,12 @@ export default function Chat({ code, token }: { code: string; token: string }) {
     const fresh: Msg[] = await res.json();
     if (fresh.length === 0) return;
     lastId.current = Math.max(lastId.current, fresh[fresh.length - 1].id);
-    setMessages((old) => [...old, ...fresh.filter((f) => !old.some((o) => o.id === f.id))].slice(-200));
-  }, [code, token]);
+    merge(fresh);
+  }, [code, token, merge]);
 
   useEffect(() => {
     const first = setTimeout(refresh, 0);
-    const t = setInterval(refresh, 2000);
+    const t = setInterval(refresh, 1000);
     return () => {
       clearTimeout(first);
       clearInterval(t);
@@ -36,12 +45,12 @@ export default function Chat({ code, token }: { code: string; token: string }) {
     const t = text.trim();
     if (!t) return;
     setText("");
-    await fetch(`/api/lobby/${code}/chat`, {
+    const res = await fetch(`/api/lobby/${code}/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token, text: t }),
     });
-    refresh();
+    if (res.ok) merge([await res.json()]); // show our own message right away
   }
 
   return (
@@ -57,7 +66,7 @@ export default function Chat({ code, token }: { code: string; token: string }) {
       <div className="flex gap-2">
         <input
           className="min-w-0 flex-1 rounded-lg border bg-white px-3 py-2 text-sm text-black"
-          placeholder="Message…"
+          placeholder="…"
           value={text}
           maxLength={300}
           onChange={(e) => setText(e.target.value)}

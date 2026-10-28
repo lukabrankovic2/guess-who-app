@@ -19,7 +19,7 @@ export default function Notes({ code }: { code: string }) {
           Clear
         </button>
       </div>
-      <p className="mb-2 text-xs opacity-60">Only you can see this. Saved on this device.</p>
+      <p className="mb-2 text-xs opacity-60">Only you can see this.</p>
       <textarea
         className="h-32 w-full rounded-lg border bg-white px-3 py-2 text-sm text-black"
         placeholder="..."

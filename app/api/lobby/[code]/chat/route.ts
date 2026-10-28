@@ -26,6 +26,6 @@ export async function POST(req: Request, { params }: Ctx) {
   if (!player) return err("You are not in this lobby", 403);
   const text = String(body.text ?? "").trim().slice(0, 300);
   if (!text) return err("Empty message");
-  await addMessage(code, player.name, text);
-  return Response.json({ ok: true });
+  const message = await addMessage(code, player.name, text);
+  return Response.json(message);
 }

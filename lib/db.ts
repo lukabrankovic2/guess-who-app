@@ -32,7 +32,8 @@ export async function loadMessages(code: string, after = 0): Promise<ChatMessage
   return (data ?? []).reverse() as ChatMessage[];
 }
 
-export async function addMessage(code: string, name: string, text: string) {
-  const { error } = await db.from("messages").insert({ code, name, text });
+export async function addMessage(code: string, name: string, text: string): Promise<ChatMessage> {
+  const { error, data } = await db.from("messages").insert({ code, name, text }).select("id, name, text").single();
   if (error) throw new Error("send chat failed: " + JSON.stringify(error));
+  return data as ChatMessage;
 }
