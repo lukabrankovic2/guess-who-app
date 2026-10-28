@@ -112,7 +112,7 @@ function LobbyContent() {
   );
 
   return (
-    <main className="mx-auto max-w-5xl p-6">
+    <main className="mx-auto max-w-7xl p-6">
       <div className="grid gap-6 md:grid-cols-[1fr_20rem]">
        <div className="space-y-6">
       <header className="flex items-baseline justify-between">
@@ -125,7 +125,7 @@ function LobbyContent() {
       )}
       {view.status === "finished" && <p className="text-lg font-semibold">Game over</p>}
 
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         {view.players.map((p) => (
           <div
             key={p.id}
@@ -141,7 +141,13 @@ function LobbyContent() {
                   {p.thing ? (
                     <>
                       {p.thing.image && (
-                        <Image src={p.thing.image} alt={p.thing.name} width={96} height={96} className="h-24 w-24 rounded-lg object-contain" />
+                        <Image
+                          src={p.thing.image}
+                          alt={p.thing.name}
+                          width={256}
+                          height={256}
+                          className="aspect-square w-full max-w-44 rounded-lg object-contain"
+                        />
                       )}
                       <span className="text-lg">{p.thing.name}</span>
                     </>
