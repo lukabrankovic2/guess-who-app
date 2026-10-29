@@ -186,9 +186,18 @@ function LobbyContent() {
 
       {view.status === "lobby" && (isHost ? picker("Start game", "start") : <p>Waiting for the host to start…</p>)}
 
-      {view.status === "playing" && (isHost || current?.id === view.me) && (
-        <button className={btn} onClick={() => act({ action: "next" })}>Next turn</button>
-      )}
+      {view.status === "playing" && (
+        <div className="flex flex-wrap gap-3">
+          {(isHost || current?.id === view.me) && (
+            <button className={btn} onClick={() => act({ action: "next" })}>Next turn</button>
+          )}
+          {isHost && !view.started && (
+            <button className="rounded-lg border px-4 py-2" onClick={() => act({ action: "reshuffle" })}>
+              Reshuffle
+          </button>
+        )}
+      </div>
+    )}
 
       {view.status === "finished" && (
         <>

@@ -11,6 +11,9 @@ export type Lobby = {
   category: string | null;
   players: Player[];
   turnId: string | null;
+  started?: boolean; // true once the first "Next turn" (or a guess) has happened this round
+  dealt?: string[]; // names of the things dealt this round
+  avoid?: string[]; // names of the things from the previous round
 };
 export type Action = { action: string; name?: string; category?: string; target?: string };
 
@@ -21,6 +24,16 @@ function shuffle<T>(arr: T[]): T[] {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
+}
+
+function deal(category: string, count: number, avoid: string[], skipIfPossible: string[] = []): Item[] {
+  const all = CATEGORIES[category];
+  const tiers = [
+    all.filter((i) => !avoid.includes(i.name) && !skipIfPossible.includes(i.name)),
+    all.filter((i) => !avoid.includes(i.name) && skipIfPossible.includes(i.name)),
+    all.filter((i) => avoid.includes(i.name)),
+  ];
+  return tiers.flatMap((t) => shuffle(t)).slice(0, count);
 }
 
 // Next player (after fromId, in seating order) who has not guessed yet.
@@ -37,12 +50,16 @@ function nextActive(l: Lobby, fromId: string | null): string | null {
 function startGame(l: Lobby, category?: string): string | null {
   if (!category || !Object.hasOwn(CATEGORIES, category)) return "Pick a category";
   if (l.players.length < 2) return "Need at least 2 players";
-  const items = shuffle(CATEGORIES[category]);
+  const avoid = l.dealt ?? []; // the round that just ended
+  const items = deal(category, l.players.length, avoid);
   if (items.length < l.players.length) return "That category has too few items";
   l.players.forEach((p, i) => {
     p.thing = items[i];
     p.out = false;
   });
+  l.avoid = avoid;
+  l.dealt = items.map((i) => i.name);
+  l.started = false;
   l.category = category;
   l.status = "playing";
   l.turnId = l.players[0].id;
@@ -87,7 +104,21 @@ function startGame(l: Lobby, category?: string): string | null {
       if (l.status !== "playing") return "Game is not running";
       if (pid !== l.turnId && !isHost) return "Not your turn";
       l.turnId = nextActive(l, l.turnId);
+      l.started = true;
       return null;
+
+    case "reshuffle": {
+      if (!isHost || l.status !== "playing") return "Only the host can do that";
+      if (l.started) return "The round has already started";
+      if (!l.category || !Object.hasOwn(CATEGORIES, l.category)) return "Unknown category";
+      const items = deal(l.category, l.players.length, l.avoid ?? [], l.dealt ?? []);
+      if (items.length < l.players.length) return "That category has too few items";
+      l.players.forEach((p, i) => {
+        p.thing = items[i];
+      });
+      l.dealt = items.map((i) => i.name);
+      return null;
+    }
 
     case "guessed": {
       if (!isHost || l.status !== "playing") return "Only the host can do that";
@@ -96,6 +127,7 @@ function startGame(l: Lobby, category?: string): string | null {
       const active = l.players.filter((p) => !p.out).length;
       t.score += active; // guessing earlier = more points
       t.out = true;
+      l.started = true;
       if (active - 1 <= 1) {
         l.status = "finished"; // second-to-last person guessed
         l.turnId = null;
@@ -130,6 +162,7 @@ function startGame(l: Lobby, category?: string): string | null {
        status: l.status,
        category: l.category,
        turnId: l.turnId,
+       started: !!l.started,
        me: me?.id ?? "",
        categories: Object.keys(CATEGORIES),
        players: l.players.map((p) => ({
