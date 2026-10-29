@@ -35,5 +35,7 @@ export async function loadMessages(code: string, after = 0): Promise<ChatMessage
 export async function addMessage(code: string, name: string, text: string): Promise<ChatMessage> {
   const { error, data } = await db.from("messages").insert({ code, name, text }).select("id, name, text").single();
   if (error) throw new Error("send chat failed: " + JSON.stringify(error));
+    // a chat message counts as lobby activity (this touches only updated_at, never the game state)
+  await db.from("lobbies").update({ updated_at: new Date().toISOString() }).eq("code", code);
   return data as ChatMessage;
 }

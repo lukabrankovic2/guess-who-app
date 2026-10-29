@@ -31,6 +31,14 @@ function LobbyContent() {
   const refresh = useCallback(async () => {
     if (!pid) return;
     const res = await fetch(`/api/lobby/${code}?token=${pid}`, { cache: "no-store" });
+      if (res.status === 404 || res.status === 403) {
+        // lobby was cleaned up, or we were removed from it: forget it and go back to the menu
+        localStorage.removeItem(`pid:${code}`);
+        localStorage.removeItem(`notes:${code}`);
+        if (res.status === 403) window.alert("You were removed from this lobby.");
+        router.push("/");
+        return;
+      }
     const data = await res.json();
     if (res.ok) setView(data);
     else setError(data.error);
@@ -162,6 +170,16 @@ function LobbyContent() {
                 Guessed
               </button>
             )}
+            {isHost && p.id !== view.me && (
+              <button
+              className="mx-auto mt-2 block text-xs underline opacity-70"
+              onClick={() => {
+            if (window.confirm(`Remove ${p.name} from the lobby?`)) act({ action: "kick", target: p.id });
+       }}
+     >
+       Remove
+     </button>
+   )}
           </div>
         ))}
       </div>

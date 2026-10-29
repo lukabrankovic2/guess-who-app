@@ -49,6 +49,8 @@ export const CATEGORIES: Record<string, Item[]> = {
     { name: "Franklin", image: "/images/video-game-characters/franklin.png" },
     { name: "Trevor", image: "/images/video-game-characters/trevor.png" },
     { name: "John Marston", image: "/images/video-game-characters/john-marston.png" },
+    { name: "Cuphead", image: "/images/video-game-characters/john-marston.png" },
+    { name: "Mugman", image: "/images/video-game-characters/john-marston.png" },
   ],
 
   "Horror Video game characters": [
@@ -219,33 +221,35 @@ export const CATEGORIES: Record<string, Item[]> = {
   ],
 
   "Counter-Strike maps": [
-    { name: "Mirage", image: "/images/cs-maps/mirage.jpg" },
-    { name: "Dust 2", image: "/images/cs-maps/dust2.jpg" },
-    { name: "Inferno", image: "/images/cs-maps/inferno.jpg" },
-    { name: "Nuke", image: "/images/cs-maps/nuke.jpeg" },
-    { name: "Ancient", image: "/images/cs-maps/ancient.jpg" },
-    { name: "Anubis", image: "/images/cs-maps/anubis.jpg" },
-    { name: "Cache", image: "/images/cs-maps/cache.jpg" },
-    { name: "Overpass", image: "/images/cs-maps/overpass.jpg" },
-    { name: "Train", image: "/images/cs-maps/train.jpg" },
-    { name: "Vertigo", image: "/images/cs-maps/vertigo.jpg" },
-    { name: "Italy", image: "/images/cs-maps/italy.jpg" },
-    { name: "Office", image: "/images/cs-maps/office.jpg" },
-    { name: "Cobblestone", image: "/images/cs-maps/cobble.jpg" },
-    { name: "Dust", image: "/images/cs-maps/dust.jpg" },
-    { name: "Aztec", image: "/images/cs-maps/aztec.jpg" },
-    { name: "Zoo", image: "/images/cs-maps/zoo.jpg" },
-    { name: "Assault", image: "/images/cs-maps/assault.jpg" },
-    { name: "Rats", image: "/images/cs-maps/rats.jpg" },
-    { name: "Tuscan", image: "/images/cs-maps/tuscan.jpg" },
-    { name: "Snow", image: "/images/cs-maps/snow.jpeg" },
-    { name: "Pool Day", image: "/images/cs-maps/poolday.jpg" },
-    { name: "Mansion", image: "/images/cs-maps/mansion.jpg" },
-    { name: "Shortdust", image: "/images/cs-maps/shortdust.jpg" },
-    { name: "Safehouse", image: "/images/cs-maps/safehouse.jpg" },
-    { name: "Lake", image: "/images/cs-maps/lake.jpg" },
-    { name: "Canals", image: "/images/cs-maps/canals.jpg" },
-    { name: "Castle", image: "/images/cs-maps/castle.jpg" },
+    { name: "de_mirage", image: "/images/cs-maps/mirage.jpg" },
+    { name: "de_dust2", image: "/images/cs-maps/dust2.jpg" },
+    { name: "de_inferno", image: "/images/cs-maps/inferno.jpg" },
+    { name: "de_nuke", image: "/images/cs-maps/nuke.jpeg" },
+    { name: "de_ancient", image: "/images/cs-maps/ancient.jpg" },
+    { name: "de_anubis", image: "/images/cs-maps/anubis.jpg" },
+    { name: "de_cache", image: "/images/cs-maps/cache.jpg" },
+    { name: "de_overpass", image: "/images/cs-maps/overpass.jpg" },
+    { name: "de_train", image: "/images/cs-maps/train.jpg" },
+    { name: "de_vertigo", image: "/images/cs-maps/vertigo.jpg" },
+    { name: "cs_italy", image: "/images/cs-maps/italy.jpg" },
+    { name: "cs_office", image: "/images/cs-maps/office.jpg" },
+    { name: "de_cbble", image: "/images/cs-maps/cobble.jpg" },
+    { name: "de_dust", image: "/images/cs-maps/dust.jpg" },
+    { name: "de_aztec", image: "/images/cs-maps/aztec.jpg" },
+    { name: "de_zoo", image: "/images/cs-maps/zoo.jpg" },
+    { name: "cs_assault", image: "/images/cs-maps/assault.jpg" },
+    { name: "de_rats", image: "/images/cs-maps/rats.jpg" },
+    { name: "de_tuscan", image: "/images/cs-maps/tuscan.jpg" },
+    { name: "fy_snow", image: "/images/cs-maps/snow.jpeg" },
+    { name: "fy_pool_day", image: "/images/cs-maps/poolday.jpg" },
+    { name: "cs_mansion", image: "/images/cs-maps/mansion.jpg" },
+    { name: "de_safehouse", image: "/images/cs-maps/safehouse.jpg" },
+    { name: "de_lake", image: "/images/cs-maps/lake.jpg" },
+    { name: "de_canals", image: "/images/cs-maps/canals.jpg" },
+    { name: "de_castle", image: "/images/cs-maps/castle.jpg" },
+    { name: "de_basalt", image: "/images/cs-maps/basalt.jpg" },
+    { name: "cs_militia", image: "/images/cs-maps/militia.jpg" },
+    { name: "de_seaside", image: "/images/cs-maps/seaside.jpg" },
     
   ],
 
@@ -301,6 +305,18 @@ export const CATEGORIES: Record<string, Item[]> = {
     { name: "Zdravko Colic", image: "/images/srpske-licnosti/zdravko.jpg" },
     { name: "Zorica Brunclik", image: "/images/srpske-licnosti/zorica.jpeg" },
     
+  ],
+
+  "Websites": [
+
+  ],
+
+  "Countries": [
+
+  ],
+
+  "Celebrities": [
+
   ],
 
 };

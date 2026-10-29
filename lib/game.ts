@@ -49,6 +49,24 @@ function startGame(l: Lobby, category?: string): string | null {
   return null;
 }
 
+   // Take a player out of the lobby, keeping turns, the host role and the end-of-game rule consistent.
+   function removePlayer(l: Lobby, id: string) {
+     const p = l.players.find((x) => x.id === id);
+     if (!p) return;
+     p.out = true; // so the turn and game-end checks ignore them
+     if (l.status === "playing") {
+       const remaining = l.players.filter((x) => !x.out).length;
+       if (remaining <= 1) {
+         l.status = "finished";
+         l.turnId = null;
+       } else if (l.turnId === id) {
+         l.turnId = nextActive(l, id); // pass the turn on before removing them
+       }
+     }
+     l.players = l.players.filter((x) => x.id !== id);
+     if (l.hostId === id && l.players.length > 0) l.hostId = l.players[0].id;
+   }
+
 // Changes the lobby in place. Returns an error message, or null if it worked.
    export function applyAction(l: Lobby, token: string, a: Action): string | null {
      const me = l.players.find((p) => p.token === token);
@@ -87,22 +105,18 @@ function startGame(l: Lobby, category?: string): string | null {
       return null;
     }
 
-    case "leave": {
-      const leaver = l.players.find((p) => p.id === pid)!;
-      leaver.out = true; // so turn and game-end checks ignore them
-      if (l.status === "playing") {
-        const remaining = l.players.filter((p) => !p.out).length;
-        if (remaining <= 1) {
-          l.status = "finished";
-          l.turnId = null;
-        } else if (l.turnId === pid) {
-          l.turnId = nextActive(l, pid); // pass the turn on before removing them
-        }
-      }
-      l.players = l.players.filter((p) => p.id !== pid);
-      if (l.hostId === pid && l.players.length > 0) l.hostId = l.players[0].id;
+    case "leave":
+      removePlayer(l, pid);
       return null;
-    }
+
+    case "kick": {
+      if (!isHost) return "Only the host can remove players";
+      const target = a.target ?? "";
+      if (target === pid) return "Use Leave lobby to leave yourself";
+      if (!l.players.some((p) => p.id === target)) return "Invalid player";
+      removePlayer(l, target);
+      return null;
+      }
   }
   return "Unknown action";
 }
