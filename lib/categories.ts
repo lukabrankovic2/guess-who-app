@@ -352,7 +352,7 @@ export const CATEGORIES: Record<string, Item[]> = {
     { name: "Disney Plus", image: "/images/websites/disney.jpg" },
     { name: "Booking.com", image: "/images/websites/booking.jpg" },
     { name: "AirBnB", image: "/images/websites/airbnb.png" },
-    { name: "Shein", image: "/images/websites/shein.png" },
+    { name: "Shein", image: "/images/websites/shein.jpg" },
     { name: "Vinted", image: "/images/websites/vinted.jpg" },
 
   ],
