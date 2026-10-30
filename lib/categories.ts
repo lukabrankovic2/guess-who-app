@@ -368,12 +368,10 @@ export const CATEGORIES: Record<string, Item[]> = {
     { name: "Kickstarter", image: "/images/websites/kickstarter.png" },
     { name: "GoFundMe", image: "/images/websites/gofundme.png" },
     { name: "OnlyFans", image: "/images/websites/onlyfans.png" },
+    { name: "LiveLeek", image: "/images/websites/liveleek.jpg" },
 
   ],
 
-  "Countries": [
-
-  ],
 
   "Valorant agents": [
     { name: "Astra", image: "/images/valorant-agents/astra.png" },
@@ -582,5 +580,72 @@ export const CATEGORIES: Record<string, Item[]> = {
     { name: "Zoe", image: "/images/lol-champs/Zoe.jpg" },
     { name: "Zyra", image: "/images/lol-champs/Zyra.jpg" }
 ],
+
+  "Alcoholic bevarages": [
+    { name: "Ale", image: "/images/alcohol/ale.jpg" },
+    { name: "Lager", image: "/images/alcohol/lager.jpg" },
+    { name: "Stout", image: "/images/alcohol/stout.jpg" },
+    { name: "Cider", image: "/images/alcohol/cider.jpg" },
+    { name: "Mead", image: "/images/alcohol/mead.jpg" },
+    { name: "IPA", image: "/images/alcohol/ipa.png" },
+    { name: "Sake", image: "/images/alcohol/sake.jpg" },
+    { name: "White wine", image: "/images/alcohol/white-w.jpg" },
+    { name: "Red wine", image: "/images/alcohol/red-w.jpg" },
+    { name: "Rosé Wine", image: "/images/alcohol/rose-w.jpg" },
+    { name: "Sangria", image: "/images/alcohol/sangria.jpg" },
+    { name: "Champagne", image: "/images/alcohol/champ.jpg" },
+    { name: "Cognac", image: "/images/alcohol/cognac.jpg" },
+    { name: "Rakija", image: "/images/alcohol/rakija.jpg" },
+    { name: "Whiskey", image: "/images/alcohol/whiskey.jpg" },
+    { name: "Gin", image: "/images/alcohol/gin.jpg" },
+    { name: "Soju", image: "/images/alcohol/soju.jpg" },
+    { name: "Vodka", image: "/images/alcohol/vodka.jpg" },
+    { name: "Absinthe", image: "/images/alcohol/absinthe.jpg" },
+    { name: "Tequila", image: "/images/alcohol/tequilla.png" },
+    { name: "Rum", image: "/images/alcohol/rum.jpg" },
+    { name: "Wheat beer", image: "/images/alcohol/wheat-b.jpg" },
+    { name: "Vermouth", image: "/images/alcohol/vermouth.jpg" },
+    { name: "Brandy", image: "/images/alcohol/brandy.jpg" },
+    { name: "Bourbon", image: "/images/alcohol/bourbon.png" },
+    { name: "Scotch", image: "/images/alcohol/scotch.jpg" },
+    { name: "Limoncello", image: "/images/alcohol/limon.jpg" },
+    { name: "Cream liquer", image: "/images/alcohol/cream-liq.jpg" },
+    { name: "Amaretto", image: "/images/alcohol/amaretto.jpg" },
+
+],
+
+  "Beers (Serbian and others)": [
+    { name: "Jelen", image: "/images/beer/jelen.JPG" },
+    { name: "Zajecarsko", image: "/images/beer/zajecarsko.jpg" },
+    { name: "Baraba", image: "/images/beer/baraba.png" },
+    { name: "Tuborg", image: "/images/beer/tuborg.jpg" },
+    { name: "Nisko", image: "/images/beer/nisko.jpg" },
+    { name: "Niksicko", image: "/images/beer/niksicko.jpg" },
+    { name: "Ozujsko", image: "/images/beer/zuja.jpg" },
+    { name: "Lav Premium", image: "/images/beer/lav.jpg" },
+    { name: "Lasko", image: "/images/beer/lasko.png" },
+    { name: "Corona", image: "/images/beer/corona.png" },
+    { name: "Staropramen", image: "/images/beer/staropramen.jpg" },
+    { name: "Carlsberg", image: "/images/beer/carl.png" },
+    { name: "Heineken", image: "/images/beer/heineken.png" },
+    { name: "Kronenbourg", image: "/images/beer/kronen.jpg" },
+    { name: "Nektar", image: "/images/beer/nektar.jpg" },
+    { name: "Amstel", image: "/images/beer/amstel.JPG" },
+    { name: "Pils Plus", image: "/images/beer/pils.jpg" },
+    { name: "Stella Artois", image: "/images/beer/stella.jpg" },
+    { name: "Bud Light", image: "/images/beer/bud.jpg" },
+    { name: "Duff", image: "/images/beer/duff.jpg" },
+    { name: "Guinness", image: "/images/beer/guinness.jpg" },
+    { name: "Budweiser", image: "/images/beer/budweiser.jpg" },
+    { name: "Miller Lite", image: "/images/beer/miller.jpg" },
+    { name: "Sarajevsko", image: "/images/beer/sarajevsko.jpg" },
+    { name: "Pilsner Urquell", image: "/images/beer/pilsner.jpg" },
+    { name: "Kozel", image: "/images/beer/kozel.png" },
+    { name: "Blue Moon", image: "/images/beer/blue-moon.jpg" },
+    { name: "Mythos", image: "/images/beer/mythos.png" },
+    { name: "Apatinsko", image: "/images/beer/apatinsko.png" },
+    { name: "Merak", image: "/images/beer/merak.png" },
+
+  ],
 
 };
