@@ -645,6 +645,8 @@ export const CATEGORIES: Record<string, Item[]> = {
     { name: "Mythos", image: "/images/beer/mythos.png" },
     { name: "Apatinsko", image: "/images/beer/apatinsko.png" },
     { name: "Merak", image: "/images/beer/merak.png" },
+    { name: "Löwenbräu", image: "/images/beer/lowenbrau.png" },
+    { name: "Becks", image: "/images/beer/becks.jpg" },
 
   ],
 
